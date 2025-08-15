@@ -1,0 +1,18 @@
+services:
+  angular-app:
+    build:
+      context: .
+      dockerfile: docker/.frontend.dockerfile
+    ports:
+      - "8080:80"
+    container_name: EcommerceProjetaADA2
+  
+  angular-dev:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "4200:4200"
+    command: sh -c "echo 'Acesse http://localhost:4200 para desenvolvimento local' && npm install && npx ng serve --host 0.0.0.0 --poll 1000"
+    container_name: angular-dev
