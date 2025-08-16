@@ -1,0 +1,31 @@
+<nav class="navbar">
+  <div class="navbar__logo">
+    <a routerLink="/">
+      <img src="assets/logo.png" alt="Ecommerce Logo" height="40" />
+    </a>
+    <span class="navbar__titulo">Nexus &nbsp;</span>
+    <span class="navbar__titulo">Store &nbsp;</span>
+  </div>
+  <ul class="navbar__links">
+    <!-- <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li> -->
+    <!-- <li><a routerLink="/produtos" routerLinkActive="active">Produtos</a></li> -->
+    <li>
+      <a routerLink="/" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+        Inicio
+      </a>
+    </li>
+    <li>
+      <a routerLink="/carrinho" routerLinkActive="active">
+        <mat-icon>shopping_cart</mat-icon>
+        Carrinho
+      </a>
+    </li>
+    <li>
+      <a routerLink="/login" routerLinkActive="active">
+        <mat-icon>person</mat-icon>
+        Login
+      </a>
+    </li>
+  </ul>
+</nav>

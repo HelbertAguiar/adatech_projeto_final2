@@ -1,0 +1,98 @@
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: radial-gradient(circle at 0% 0%, #2f3d56 0%, #415477 100%);
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(45, 179, 173, 0.08);
+
+  &__titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f8f8;
+    background: radial-gradient(circle at center, #415477 0%, #3dd2cc 30%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent; 
+    -webkit-text-fill-color: transparent;
+  }
+
+  &__logo {
+    img {
+      height: 40px;
+      filter: drop-shadow(0 2px 4px #657e9f);
+    }
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+
+      cursor: pointer;
+
+      a {
+        color: #f8f8f8;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        transition: color 0.2s, background 0.2s, transform 0.2s;
+        padding: 0.5rem 0.8rem;
+        border-radius: 6px;
+        background: transparent;
+
+        &.active,
+        &:hover {
+          color: #3dd2cc;
+          background: linear-gradient(90deg, #2f3d56 0%, #415477 100%);
+          box-shadow: 0 2px 8px rgba(29, 38, 53, 0.12);
+          transform: translateY(-2px) scale(1.05);
+        }
+
+        mat-icon {
+          margin-right: 0.4rem;
+          font-size: 1.3rem;
+          color: #66dcd7;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    background: radial-gradient(circle at 0% 0%, #2f3d56 0%, #415477 100%);
+
+    &__titulo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #f8f8f8;
+      background: radial-gradient(circle at center, #415477 0%, #3dd2cc 30%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent; 
+      -webkit-text-fill-color: transparent;
+    }
+
+    &__links {
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+    &__logo {
+      margin-bottom: 1rem;
+    }
+  }
+
+}

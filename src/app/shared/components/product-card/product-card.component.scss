@@ -1,0 +1,111 @@
+.product-card {
+
+	// Estilos inspirados no layout do card do exemplo
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	padding: 24px;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 320px;
+	margin: 16px;
+
+	&__image {
+		img {
+			width: 220px;
+			height: auto;
+			border-radius: 12px;
+			margin-bottom: 16px;
+			display: block;
+		}
+	}
+
+	&__info {
+		text-align: center;
+		margin-bottom: 16px;
+
+			&__title {
+				margin: 0 0 6px 0;
+				font-size: 1.1em;
+			}
+
+		&__category {
+			color: #ff9800;
+			font-size: 0.9em;
+			font-weight: 600;
+			display: block;
+			margin-bottom: 4px;
+		}
+
+		&__description {
+			color: #555;
+			font-size: 0.95em;
+			margin-bottom: 8px;
+		}
+
+		&__prices {
+			font-size: 1.2em;
+			font-weight: bold;
+			margin-bottom: 8px;
+
+			& .product-card__price {
+				margin-right: 8px;
+			}
+
+			& .product-card__price-old {
+				color: #aaa;
+				text-decoration: line-through;
+				font-size: 1em;
+			}
+		}
+
+		&__rating {
+			color: #888;
+			font-size: 0.95em;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		gap: 12px;
+		justify-content: center;
+		margin-top: 12px;
+
+		& .product-card__button {
+			border: none;
+			border-radius: 8px;
+			padding: 10px 24px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.2s, color 0.2s;
+		}
+
+		& .product-card__button--add {
+			background: #9a8244;
+			color: #fff;
+		}
+
+		& .product-card__button--add:hover {
+			background: #9a8244dd;
+		}
+
+		& .product-card__button--favorite {
+			background: #fff;
+			color: #ff9800;
+			border: 2px solid #ff9800;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			font-size: 1.3em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		& .product-card__button--favorite:hover {
+			background: #ff9800;
+			color: #fff;
+		}
+	}
+}

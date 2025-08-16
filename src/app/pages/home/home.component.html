@@ -1,1 +1,33 @@
+<app-navbar></app-navbar>
 <p>Ecommerce, o inicio!</p>
+
+<div class="home">
+    <div class="home__sidebar">
+        <div class="home__filters">
+            <h3 class="home__filters-title">Filtros</h3>
+            <div class="home__filter-group">
+                <label for="category" class="home__filter-label">Categoria:</label>
+                <select id="category" class="home__filter-select">
+                    <option value="">Todas</option>
+                    <option value="eletronicos">Eletrônicos</option>
+                    <option value="moda">Moda</option>
+                    <option value="livros">Livros</option>
+                </select>
+            </div>
+            <div class="home__filter-group">
+                <label for="preco" class="home__filter-label">Preço máximo:</label>
+                <input id="preco" type="range" min="0" max="1000" step="10" class="home__filter-range" />
+                <span class="home__filter-value">R$ 1000</span>
+            </div>
+        </div>
+    </div>
+    <div class="home__main">
+        <div class="home__products">
+            <div class="home__product-list">
+                <div *ngFor="let produto of listaProdutos" class="home__product-item">
+                    <app-product-card [product]="produto"></app-product-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

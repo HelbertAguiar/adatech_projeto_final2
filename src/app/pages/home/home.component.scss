@@ -1,0 +1,88 @@
+// Mobile: filters above products
+@media (max-width: 768px) {
+	.home {
+		flex-direction: column;
+    
+		&__sidebar {
+			width: 100%;
+			padding: 12px 8px;
+			order: 0;
+		}
+
+		&__main {
+			width: 100%;
+			order: 1;
+			justify-content: flex-start;
+			padding: 0 4px;
+		}
+	}
+}
+// BEM e Sass nesting para Home
+.home {
+	display: flex;
+	width: 100%;
+
+	&__sidebar {
+		width: 250px;
+		padding: 16px;
+
+		& .home__filters {
+			// Filtros container
+			&-title {
+				font-size: 1.2em;
+				margin-bottom: 12px;
+			}
+
+			.home__filter-group {
+				margin-bottom: 18px;
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+			}
+
+			.home__filter-label {
+				font-size: 1em;
+				font-weight: 500;
+				margin-bottom: 2px;
+			}
+
+			.home__filter-select {
+				padding: 6px 8px;
+				border-radius: 6px;
+				border: 1px solid #ccc;
+				font-size: 1em;
+			}
+
+			.home__filter-range {
+				width: 100%;
+				margin-top: 4px;
+			}
+
+			.home__filter-value {
+				font-size: 0.95em;
+				color: #555;
+				margin-top: 2px;
+			}
+		}
+	}
+
+	&__main {
+		flex: 1;
+		display: flex;
+		justify-content: flex-end;
+
+		& .home__products {
+			width: 100%;
+
+			& .home__product-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 16px;
+
+				& .home__product-item {
+					display: inline-flex;
+				}
+			}
+		}
+	}
+}
