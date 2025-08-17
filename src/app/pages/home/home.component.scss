@@ -23,7 +23,11 @@
 	width: 100%;
 
 	&__sidebar {
-		width: 250px;
+		width: 10%;
+
+		@media (max-width: 768px) {
+			width: 90%;
+		}
 		padding: 16px;
 
 		& .home__filters {
@@ -77,10 +81,12 @@
 			& .home__product-list {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 16px;
+				align-items: stretch;
 
 				& .home__product-item {
-					display: inline-flex;
+					margin: 1%;
+					flex: 1 1 calc(45% - 2%);
+					box-sizing: border-box;
 				}
 			}
 		}

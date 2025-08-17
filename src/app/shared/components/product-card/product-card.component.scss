@@ -1,96 +1,141 @@
 .product-card {
 
-	// Estilos inspirados no layout do card do exemplo
-	background: #fff;
+	background: #cfd8dc;
 	border-radius: 16px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-	padding: 24px;
-	display: inline-flex;
-	flex-direction: column;
-	align-items: center;
-	max-width: 320px;
-	margin: 16px;
+	padding: 1vw 1vw;
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+
+	@media (max-width: 900px) {
+		flex-direction: column;
+		max-width: 98vw;
+		min-height: 260px;
+		height: auto;
+		padding: 2vw 2vw;
+	}
 
 	&__image {
+		height: 100%;
+		width: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
 		img {
-			width: 220px;
-			height: auto;
-			border-radius: 12px;
-			margin-bottom: 16px;
-			display: block;
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+	}
+
+	&__right {
+		flex: 1 1 70%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding: 0rem 0.5rem;
+
+		@media (max-width: 900px) {
+			align-items: center;
+			padding: 0.5rem 0;
 		}
 	}
 
 	&__info {
-		text-align: center;
-		margin-bottom: 16px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-start;
+		text-align: justify;
+		height: 100%;
 
-			&__title {
-				margin: 0 0 6px 0;
-				font-size: 1.1em;
-			}
+		@media (max-width: 900px) {
+			align-items: center;
+			text-align: center;
+		}
+	}
 
-		&__category {
-			color: #ff9800;
-			font-size: 0.9em;
-			font-weight: 600;
-			display: block;
-			margin-bottom: 4px;
+	&__title {
+		margin: 0 0 6px 0;
+		font-size: clamp(1em, 2vw, 1.2em);
+		font-weight: 700;
+	}
+
+	&__category {
+		color: #ff9800;
+		font-size: clamp(0.9em, 1.5vw, 1em);
+		font-weight: 600;
+		display: block;
+		margin-bottom: 1rem;
+	}
+
+	&__description {
+		color: #555;
+		font-size: clamp(0.95em, 1.5vw, 1.1em);
+		margin-bottom: 8px;
+		word-break: break-word;
+	}
+
+	&__prices {
+		font-size: clamp(1.1em, 2vw, 1.3em);
+		font-weight: bold;
+		margin-bottom: 8px;
+
+		.product-card__price {
+			margin-right: 8px;
 		}
 
-		&__description {
-			color: #555;
-			font-size: 0.95em;
-			margin-bottom: 8px;
+		.product-card__price-old {
+			color: #aaa;
+			text-decoration: line-through;
+			font-size: 1em;
 		}
+	}
 
-		&__prices {
-			font-size: 1.2em;
-			font-weight: bold;
-			margin-bottom: 8px;
-
-			& .product-card__price {
-				margin-right: 8px;
-			}
-
-			& .product-card__price-old {
-				color: #aaa;
-				text-decoration: line-through;
-				font-size: 1em;
-			}
-		}
-
-		&__rating {
-			color: #888;
-			font-size: 0.95em;
-		}
+	&__rating {
+		color: #888;
+		font-size: clamp(0.9em, 1.5vw, 1em);
 	}
 
 	&__actions {
 		display: flex;
 		gap: 12px;
-		justify-content: center;
-		margin-top: 12px;
+		justify-content: flex-start;
+		align-items: center;
+		margin-top: 1em;
+		height: auto;
 
-		& .product-card__button {
+		@media (max-width: 900px) {
+			justify-content: center;
+		}
+
+		.product-card__button {
 			border: none;
 			border-radius: 8px;
-			padding: 10px 24px;
+			padding: 0.5rem 1.5rem;
 			font-weight: 600;
 			cursor: pointer;
 			transition: background 0.2s, color 0.2s;
+			font-size: clamp(1em, 2vw, 1.1em);
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 
-		& .product-card__button--add {
+		.product-card__button--add {
 			background: #9a8244;
 			color: #fff;
 		}
 
-		& .product-card__button--add:hover {
+		.product-card__button--add:hover {
 			background: #9a8244dd;
 		}
 
-		& .product-card__button--favorite {
+		.product-card__button--favorite {
 			background: #fff;
 			color: #ff9800;
 			border: 2px solid #ff9800;
@@ -98,12 +143,9 @@
 			width: 40px;
 			height: 40px;
 			font-size: 1.3em;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 		}
 
-		& .product-card__button--favorite:hover {
+		.product-card__button--favorite:hover {
 			background: #ff9800;
 			color: #fff;
 		}

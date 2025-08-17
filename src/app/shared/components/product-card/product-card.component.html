@@ -1,25 +1,41 @@
+
 <div class="product-card">
     <div class="product-card__image">
+        <!-- <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" [alt]="product.title" /> -->
         <img [src]="product.image" [alt]="product.title" />
     </div>
+    <div class="product-card__right">
+        <div class="product-card__info">
+            <div class="product-card__title">
+                <span class="product-card__category">{{ product.category }}</span>
+                <h2 class="">{{ product.title }}</h2>
+            </div>
 
-    <div class="product-card__info">
-        <h2 class="product-card__title">{{ product.title }}</h2>
-        <span class="product-card__category">{{ product.category }}</span>
-        <p class="product-card__description">{{ product.description }}</p>
+            <div class="product-card__description">
+                <p>{{ product.description | truncate:200 }}</p>
+            </div>
 
-        <div class="product-card__prices">
-            <span class="product-card__price">{{ product.price | currency:'BRL' }}</span>
-            <!-- <span *ngIf="product.price" class="product-card__price-old">{{ 1.09*product.price | currency:'BRL' }}</span> -->
+            <div class="product-card__rodape">
+                <div class="product-card__prices">
+                    <span class="product-card__price">{{ product.price | currency:'BRL' }}</span>
+                    <span *ngIf="product.price" class="product-card__price-old">{{ 1.09 * product.price | currency:'BRL' }}</span>
+                </div>
+    
+                <div class="product-card__rating">
+                    <span>Rating: {{ product.rating.rate }} ({{ product.rating.count }} reviews)</span>
+                </div>
+            </div>
+
         </div>
-
-        <div class="product-card__rating">
-            <span>Rating: {{ product.rating.rate }} ({{ product.rating.count }} reviews)</span>
+        <div class="product-card__actions">
+            <button class="product-card__button product-card__button--add">
+                <mat-icon>shopping_cart</mat-icon> 
+                &nbsp;
+                <span>Adicionar</span>
+            </button>
+            <button class="product-card__button product-card__button--favorite">
+                &#x2665;
+            </button>
         </div>
-    </div>
-
-    <div class="product-card__actions">
-        <button class="product-card__button product-card__button--add">Adicionar</button>
-        <button class="product-card__button product-card__button--favorite">&#x2665;</button>
     </div>
 </div>
