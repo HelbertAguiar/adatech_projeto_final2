@@ -9,11 +9,11 @@
 
             <div class="home__filter-group">
                 <label for="category" class="home__filter-label">Categoria:</label>
-                <mat-select value="Todas">
+                <mat-select value="Todas" (selectionChange)="filtroCategoria($event)">
                     <mat-option value="Todas">Todas</mat-option>
-                    <mat-option value="eletronicos">Eletrônicos</mat-option>
-                    <mat-option value="moda">Moda</mat-option>
-                    <mat-option value="livros">Livros</mat-option>
+                    @for (categoria of listaCategorias; track categoria) {
+                        <mat-option [value]="categoria">{{ categoria }}</mat-option>
+                    }
                 </mat-select>
             </div>
             
@@ -28,9 +28,11 @@
     <div class="home__main">
         <div class="home__products">
             <div class="home__product-list">
-                <div *ngFor="let produto of listaProdutos" class="home__product-item">
-                    <app-product-card [product]="produto"></app-product-card>
-                </div>
+                @for (produto of listaProdutosExibir; track produto.id) {
+                    <div class="home__product-item">
+                        <app-product-card [product]="produto"></app-product-card>
+                    </div>
+                }
             </div>
         </div>
     </div>

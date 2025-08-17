@@ -19,6 +19,8 @@ export class HomeComponent {
 
   // final '$' Observables
   public listaProdutos: Product[] = [];
+  public listaProdutosExibir: Product[] = [];
+  public listaCategorias: string[] = [];
 
   constructor(private productService: ProductService) { }
 
@@ -26,14 +28,24 @@ export class HomeComponent {
     this.productService.getAll().subscribe(products => {
       this.listaProdutos = products;
       if (this.listaProdutos && this.listaProdutos.length > 0) {
-        this.renderizaProdutos();
+        this.extraiCategorias();
+        this.exibeProdutos();
       }
     });
   }
-  
-  renderizaProdutos() {
-    // Lógica para renderizar os produtos
-    console.log({'lista': this.listaProdutos});
+
+  extraiCategorias() {
+    this.listaCategorias = Array.from(new Set(this.listaProdutos.map(produto => produto.category)));
+  }
+
+  exibeProdutos() {
+    this.listaProdutosExibir = [...this.listaProdutos];
+  }
+
+  filtroCategoria({ value }: { value: string }) {
+    this.listaProdutosExibir = value === 'Todas'
+      ? [...this.listaProdutos]
+      : this.listaProdutos.filter(produto => produto.category === value);
   }
 
 }
