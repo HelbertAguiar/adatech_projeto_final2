@@ -21,6 +21,7 @@
     "paths": {
       "@pages/*": ["app/pages/*"],
       "@shared/*": ["app/shared/*"],
+      "@pipes/*": ["app/shared/pipes/*"],
       "@guards/*": ["app/core/guards/*"],
       "@models/*": ["app/core/models/*"],
       "@services/*": ["app/core/services/*"],
