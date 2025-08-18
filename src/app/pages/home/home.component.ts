@@ -33,6 +33,9 @@ export class HomeComponent {
   public listaCategorias: string[] = [];
   public precoMinimoFiltro!: number;
   public precoMaximoFiltro!: number;
+  public categoriaSelecionada: string = 'Todas';
+  public precoMinSelecionado!: number;
+  public precoMaxSelecionado!: number;
 
   @ViewChild('filtroPrecoMaxID') filtroPrecoMaxCustomizado!: ElementRef<HTMLInputElement>;
   @ViewChild('filtroPrecoMinID') filtroPrecoMinCustomizado!: ElementRef<HTMLInputElement>;
@@ -45,7 +48,9 @@ export class HomeComponent {
       if (this.listaProdutos && this.listaProdutos.length > 0) {
         this.inicializaFiltroPreco();
         this.extraiCategorias();
-        this.exibeProdutos();
+        this.precoMinSelecionado = this.precoMinimoFiltro;
+        this.precoMaxSelecionado = this.precoMaximoFiltro;
+        this.filtrarProdutos();
       }
     });
   }
@@ -66,17 +71,23 @@ export class HomeComponent {
     this.listaProdutosExibir = [...this.listaProdutos];
   }
 
+  filtrarProdutos() {
+    this.listaProdutosExibir = this.listaProdutos.filter(produto => {
+      const categoriaOk = this.categoriaSelecionada === 'Todas' || produto.category === this.categoriaSelecionada;
+      const precoOk = produto.price >= this.precoMinSelecionado && produto.price <= this.precoMaxSelecionado;
+      return categoriaOk && precoOk;
+    });
+  }
+
   filtroCategoria({ value }: { value: string }) {
-    this.listaProdutosExibir = value === 'Todas'
-      ? [...this.listaProdutos]
-      : this.listaProdutos.filter(produto => produto.category === value);
+    this.categoriaSelecionada = value;
+    this.filtrarProdutos();
   }
 
   filtroPreco() {
-    this.listaProdutosExibir = this.listaProdutos.filter(produto =>
-      produto.price > Number(this.filtroPrecoMinCustomizado.nativeElement.value) &&
-      produto.price < Number(this.filtroPrecoMaxCustomizado.nativeElement.value)
-    );
+    this.precoMinSelecionado = Number(this.filtroPrecoMinCustomizado.nativeElement.value);
+    this.precoMaxSelecionado = Number(this.filtroPrecoMaxCustomizado.nativeElement.value);
+    this.filtrarProdutos();
   }
 
   formatLabelFiltroPreco(value: number): string {
