@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-home',
@@ -20,12 +21,14 @@ import { MatSliderModule } from '@angular/material/slider';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatSliderModule
+    MatSliderModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  public loading: boolean = false;
 
   // final '$' Observables
   public listaProdutos: Product[] = [];
@@ -51,9 +54,9 @@ export class HomeComponent {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.productService.getAll().subscribe(products => {
       this.listaProdutos = products;
-      console.log(this.listaProdutos);
       if (this.listaProdutos && this.listaProdutos.length > 0) {
         this.inicializaFiltroPreco();
         this.inicializaFiltroRating();
@@ -64,6 +67,7 @@ export class HomeComponent {
         this.ratingMaxSelecionado = this.ratingMaximoFiltro;
         this.filtrarProdutos();
       }
+      this.loading = false;
     });
   }
 
@@ -93,12 +97,16 @@ export class HomeComponent {
   }
 
   filtrarProdutos() {
-    this.listaProdutosExibir = this.listaProdutos.filter(produto => {
-      const categoriaOk = this.categoriaSelecionada === 'Todas' || produto.category === this.categoriaSelecionada;
-      const precoOk = produto.price >= this.precoMinSelecionado && produto.price <= this.precoMaxSelecionado;
-      const rateOk = produto.rating.rate >= this.ratingMinSelecionado && produto.rating.rate <= this.ratingMaxSelecionado;
-      return categoriaOk && precoOk && rateOk;
-    });
+    this.loading = true;
+    setTimeout(() => {
+      this.listaProdutosExibir = this.listaProdutos.filter(produto => {
+        const categoriaOk = this.categoriaSelecionada === 'Todas' || produto.category === this.categoriaSelecionada;
+        const precoOk = produto.price >= this.precoMinSelecionado && produto.price <= this.precoMaxSelecionado;
+        const rateOk = produto.rating.rate >= this.ratingMinSelecionado && produto.rating.rate <= this.ratingMaxSelecionado;
+        return categoriaOk && precoOk && rateOk;
+      });
+      this.loading = false;
+    }, 300);
   }
 
   filtroCategoria({ value }: { value: string }) {

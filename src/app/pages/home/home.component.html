@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-<p>Ecommerce, o inicio!</p>
 
 <div class="home">
     <div class="home__sidebar">
@@ -40,11 +39,21 @@
     <div class="home__main">
         <div class="home__products">
             <div class="home__product-list">
+
+            @if (loading) {
+                <div class="spinner-container">
+                    <mat-spinner mode="indeterminate" diameter="150"></mat-spinner>
+                </div>
+            } @else {
                 @for (produto of listaProdutosExibir; track produto.id) {
                     <div class="home__product-item">
                         <app-product-card [product]="produto"></app-product-card>
                     </div>
+                } @empty {
+                    <div class="home__no-products">Nenhum produto localizado.</div>
                 }
+            }
+
             </div>
         </div>
     </div>
