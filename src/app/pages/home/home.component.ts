@@ -31,25 +31,37 @@ export class HomeComponent {
   public listaProdutos: Product[] = [];
   public listaProdutosExibir: Product[] = [];
   public listaCategorias: string[] = [];
+
   public precoMinimoFiltro!: number;
   public precoMaximoFiltro!: number;
+  public ratingMinimoFiltro!: number;
+  public ratingMaximoFiltro!: number;
+
   public categoriaSelecionada: string = 'Todas';
   public precoMinSelecionado!: number;
   public precoMaxSelecionado!: number;
+  public ratingMinSelecionado!: number;
+  public ratingMaxSelecionado!: number;
 
   @ViewChild('filtroPrecoMaxID') filtroPrecoMaxCustomizado!: ElementRef<HTMLInputElement>;
   @ViewChild('filtroPrecoMinID') filtroPrecoMinCustomizado!: ElementRef<HTMLInputElement>;
+  @ViewChild('filtroRatingMinID') filtroRatingMinCustomizado!: ElementRef<HTMLInputElement>;
+  @ViewChild('filtroRatingMaxID') filtroRatingMaxCustomizado!: ElementRef<HTMLInputElement>;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.productService.getAll().subscribe(products => {
       this.listaProdutos = products;
+      console.log(this.listaProdutos);
       if (this.listaProdutos && this.listaProdutos.length > 0) {
         this.inicializaFiltroPreco();
+        this.inicializaFiltroRating();
         this.extraiCategorias();
         this.precoMinSelecionado = this.precoMinimoFiltro;
         this.precoMaxSelecionado = this.precoMaximoFiltro;
+        this.ratingMinSelecionado = this.ratingMinimoFiltro;
+        this.ratingMaxSelecionado = this.ratingMaximoFiltro;
         this.filtrarProdutos();
       }
     });
@@ -60,6 +72,15 @@ export class HomeComponent {
     this.precoMaximoFiltro = 1 + this.listaProdutos.reduce(
       (max, produto) => {
         return produto.price > max ? produto.price : max;
+      }, 0);
+  }
+
+  inicializaFiltroRating() {
+    const MINIMO_FILTRO = 0;
+    this.ratingMinimoFiltro = MINIMO_FILTRO;
+    this.ratingMaximoFiltro = 0 + this.listaProdutos.reduce(
+      (max, produto) => {
+        return Number(produto.rating.rate) > max ? Number(produto.rating.rate) : max;
       }, 0);
   }
 
@@ -75,7 +96,8 @@ export class HomeComponent {
     this.listaProdutosExibir = this.listaProdutos.filter(produto => {
       const categoriaOk = this.categoriaSelecionada === 'Todas' || produto.category === this.categoriaSelecionada;
       const precoOk = produto.price >= this.precoMinSelecionado && produto.price <= this.precoMaxSelecionado;
-      return categoriaOk && precoOk;
+      const rateOk = produto.rating.rate >= this.ratingMinSelecionado && produto.rating.rate <= this.ratingMaxSelecionado;
+      return categoriaOk && precoOk && rateOk;
     });
   }
 
@@ -87,6 +109,13 @@ export class HomeComponent {
   filtroPreco() {
     this.precoMinSelecionado = Number(this.filtroPrecoMinCustomizado.nativeElement.value);
     this.precoMaxSelecionado = Number(this.filtroPrecoMaxCustomizado.nativeElement.value);
+    this.filtrarProdutos();
+  }
+
+  filtroRating() {
+    this.ratingMinSelecionado = Number(this.filtroRatingMinCustomizado.nativeElement.value);
+    this.ratingMaxSelecionado = Number(this.filtroRatingMaxCustomizado.nativeElement.value);
+    console.log(this.ratingMinSelecionado, this.ratingMaxSelecionado);
     this.filtrarProdutos();
   }
 

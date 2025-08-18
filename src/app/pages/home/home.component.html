@@ -25,6 +25,15 @@
                     <input [value]="precoMaximoFiltro" matSliderEndThumb (valueChange)="filtroPreco()" #filtroPrecoMaxID>
                 </mat-slider>
             </div>
+
+            <div class="home__filter-group">
+                <label for="rating" class="home__filter-label">Rating:</label>
+                <mat-slider [min]="ratingMinimoFiltro" [max]="ratingMaximoFiltro"
+                    showTickMarks discrete [displayWith]="formatLabelFiltroPreco" step="0.1">
+                    <input [value]="ratingMinimoFiltro" matSliderStartThumb (valueChange)="filtroRating()" #filtroRatingMinID>
+                    <input [value]="ratingMaximoFiltro" matSliderEndThumb (valueChange)="filtroRating()" #filtroRatingMaxID>
+                </mat-slider>
+            </div>
             
         </div>
     </div>
