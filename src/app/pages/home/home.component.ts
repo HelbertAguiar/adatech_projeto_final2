@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@shared/components/navbar/navbar.component'
 import { ProductCardComponent } from '@shared/components/product-card/product-card.component'
@@ -8,10 +9,19 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, NavbarComponent, ProductCardComponent, FormsModule, MatInputModule, MatSelectModule, MatFormFieldModule],
+  imports: [CommonModule,
+    NavbarComponent,
+    ProductCardComponent,
+    FormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatSliderModule
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -21,6 +31,11 @@ export class HomeComponent {
   public listaProdutos: Product[] = [];
   public listaProdutosExibir: Product[] = [];
   public listaCategorias: string[] = [];
+  public precoMinimoFiltro!: number;
+  public precoMaximoFiltro!: number;
+
+  @ViewChild('filtroPrecoMaxID') filtroPrecoMaxCustomizado!: ElementRef<HTMLInputElement>;
+  @ViewChild('filtroPrecoMinID') filtroPrecoMinCustomizado!: ElementRef<HTMLInputElement>;
 
   constructor(private productService: ProductService) { }
 
@@ -28,10 +43,19 @@ export class HomeComponent {
     this.productService.getAll().subscribe(products => {
       this.listaProdutos = products;
       if (this.listaProdutos && this.listaProdutos.length > 0) {
+        this.inicializaFiltroPreco();
         this.extraiCategorias();
         this.exibeProdutos();
       }
     });
+  }
+
+  inicializaFiltroPreco() {
+    this.precoMinimoFiltro = 1;
+    this.precoMaximoFiltro = 1 + this.listaProdutos.reduce(
+      (max, produto) => {
+        return produto.price > max ? produto.price : max;
+      }, 0);
   }
 
   extraiCategorias() {
@@ -46,6 +70,22 @@ export class HomeComponent {
     this.listaProdutosExibir = value === 'Todas'
       ? [...this.listaProdutos]
       : this.listaProdutos.filter(produto => produto.category === value);
+  }
+
+  filtroPreco() {
+    this.listaProdutosExibir = this.listaProdutos.filter(produto =>
+      produto.price > Number(this.filtroPrecoMinCustomizado.nativeElement.value) &&
+      produto.price < Number(this.filtroPrecoMaxCustomizado.nativeElement.value)
+    );
+  }
+
+  formatLabelFiltroPreco(value: number): string {
+
+    if (value >= 1000) {
+      return '' + String(Math.round(value / 1000)) + 'k';
+    }
+
+    return '' + String(value);
   }
 
 }

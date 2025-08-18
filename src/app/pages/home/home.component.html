@@ -18,9 +18,12 @@
             </div>
             
             <div class="home__filter-group">
-                <label for="preco" class="home__filter-label">Preço máximo:</label>
-                <input id="preco" type="range" min="0" max="1000" step="10" class="home__filter-range" />
-                <span class="home__filter-value">R$ 1000</span>
+                <label for="preco" class="home__filter-label">Preço:</label>
+                <mat-slider [min]="precoMinimoFiltro" [max]="precoMaximoFiltro"
+                    showTickMarks discrete [displayWith]="formatLabelFiltroPreco">
+                    <input [value]="precoMinimoFiltro" matSliderStartThumb (valueChange)="filtroPreco()" #filtroPrecoMinID>
+                    <input [value]="precoMaximoFiltro" matSliderEndThumb (valueChange)="filtroPreco()" #filtroPrecoMaxID>
+                </mat-slider>
             </div>
             
         </div>
