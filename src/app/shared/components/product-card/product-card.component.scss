@@ -8,6 +8,7 @@
 	box-sizing: border-box;
 	height: 100%;
 	width: 100%;
+	max-width: 42vw;
 
 	@media (max-width: 900px) {
 		flex-direction: column;
