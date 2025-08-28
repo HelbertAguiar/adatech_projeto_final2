@@ -1,11 +1,71 @@
-<div class="cart" *ngIf="items().length; else empty">
-  <div class="item" *ngFor="let item of items()">
-    <span>{{ item.title }}</span>
-    <span>{{ item.price | currency:'BRL' }}</span>
-    <button (click)="remove(item.id)">Remover</button>
-  </div>
-  <div class="total">Total: {{ total() | currency:'BRL' }}</div>
+<div class="carrinho-container">
+  <mat-card class="carrinho-card" *ngIf="itens().length; else vazio">
+    <mat-card-header>
+      <mat-card-title>
+        <div class="carrinho-titulo">
+          <mat-icon>shopping_cart</mat-icon>
+          <span>Meu Carrinho</span>
+          <mat-badge [matBadge]="itens().length" matBadgeColor="accent" matBadgeOverlap="false"></mat-badge>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <mat-list class="itens-lista">
+        <mat-list-item *ngFor="let item of itens()" class="item">
+          <div class="item-info">
+            <div class="item-imagem">
+              <img [src]="item.image" [alt]="item.title">
+            </div>
+            <div class="item-detalhes">
+              <h3>{{ item.title }}</h3>
+              <p class="item-categoria">{{ item.category | titlecase }}</p>
+              <p class="item-preco">{{ item.price | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
+            </div>
+          </div>
+          <button mat-icon-button color="warn" (click)="remover(item.id)" 
+                  matTooltip="Remover item" aria-label="Remover item do carrinho">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+      
+      <div class="total">
+        <span>Total</span>
+        <span>{{ total() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+      </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" routerLink="/">
+        <mat-icon>arrow_back</mat-icon> Continuar Comprando
+      </button>
+      <button mat-raised-button color="accent" (click)="finalizarCompra()" [disabled]="carregando">
+        <mat-icon *ngIf="!carregando">check_circle</mat-icon>
+        <mat-spinner diameter="20" *ngIf="carregando"></mat-spinner>
+        <span *ngIf="!carregando">Finalizar Compra</span>
+        <span *ngIf="carregando">Processando...</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  
+  <ng-template #vazio>
+    <mat-card class="carrinho-vazio">
+      <mat-card-header>
+        <mat-card-title>Carrinho Vazio</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="carrinho-vazio-conteudo">
+          <mat-icon class="carrinho-vazio-icone">shopping_cart</mat-icon>
+          <p>Seu carrinho está vazio.</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" routerLink="/">
+          <mat-icon>shopping_bag</mat-icon> Ir às Compras
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
 </div>
-<ng-template #empty>
-  <p>Seu carrinho está vazio. <a routerLink="/">Voltar</a></p>
-</ng-template>
