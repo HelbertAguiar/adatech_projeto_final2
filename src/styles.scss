@@ -8,3 +8,23 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+.mat-mdc-dialog-container {
+  .mat-mdc-dialog-surface {
+    border-radius: 8px !important;
+    padding: 16px !important;
+  }
+  
+  .mat-mdc-dialog-title {
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+  }
+  
+  .mat-mdc-dialog-content {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .mat-mdc-dialog-actions {
+    padding: 8px 16px;
+  }
+}

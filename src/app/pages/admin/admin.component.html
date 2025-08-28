@@ -1,15 +1,63 @@
-<h2>Administração de Produtos</h2>
-<table class="products">
-  <tr>
-    <th>ID</th>
-    <th>Título</th>
-    <th>Preço</th>
-    <th></th>
-  </tr>
-  <tr *ngFor="let p of products">
-    <td>{{ p.id }}</td>
-    <td>{{ p.title }}</td>
-    <td>{{ p.price | currency:'BRL' }}</td>
-    <td><button (click)="delete(p.id)">Excluir</button></td>
-  </tr>
-</table>
+<div class="admin-container">
+  <mat-card class="admin-card">
+    <mat-card-header>
+      <mat-card-title>Administração de Produtos</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="spinner-container" *ngIf="carregando">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <div class="filter-container" *ngIf="!carregando">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Filtrar produtos</mat-label>
+          <input matInput (keyup)="aplicarFiltro($event)" placeholder="Ex: camiseta" #input>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <table mat-table [dataSource]="fonteDados" matSort class="products-table" *ngIf="!carregando">
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let produto"> {{produto.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Título </th>
+          <td mat-cell *matCellDef="let produto"> {{produto.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="price-header"> Preço </th>
+          <td mat-cell *matCellDef="let produto" class="price-cell"> {{produto.price | currency:'BRL':'symbol':'1.2-2':'pt-BR'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Ações </th>
+          <td mat-cell *matCellDef="let produto">
+            <button mat-icon-button class="delete-button" (click)="excluir(produto.id)" aria-label="Excluir produto">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="colunasMostradas"></tr>
+        <tr mat-row *matRowDef="let row; columns: colunasMostradas;"></tr>
+
+        <!-- Linha que aparece quando não há resultados de pesquisa -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell no-results" [attr.colspan]="colunasMostradas.length">
+            Nenhum produto encontrado com o filtro aplicado
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                    showFirstLastButtons
+                    aria-label="Selecione a página de produtos">
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>
