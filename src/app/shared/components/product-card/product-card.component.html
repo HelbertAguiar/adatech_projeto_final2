@@ -1,5 +1,5 @@
 
-<div class="product-card">
+<div class="product-card" [routerLink]="['/product', product.id]">
     <div class="product-card__image">
         <!-- <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" [alt]="product.title" /> -->
         <img [src]="product.image" [alt]="product.title" />
@@ -28,12 +28,12 @@
 
         </div>
         <div class="product-card__actions">
-            <button class="product-card__button product-card__button--add">
+            <button class="product-card__button product-card__button--add" (click)="$event.stopPropagation();">
                 <mat-icon>shopping_cart</mat-icon> 
                 &nbsp;
                 <span>Adicionar</span>
             </button>
-            <button class="product-card__button product-card__button--favorite">
+            <button class="product-card__button product-card__button--favorite" (click)="$event.stopPropagation();">
                 &#x2665;
             </button>
         </div>

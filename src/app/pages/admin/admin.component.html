@@ -1,0 +1,15 @@
+<h2>Administração de Produtos</h2>
+<table class="products">
+  <tr>
+    <th>ID</th>
+    <th>Título</th>
+    <th>Preço</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let p of products">
+    <td>{{ p.id }}</td>
+    <td>{{ p.title }}</td>
+    <td>{{ p.price | currency:'BRL' }}</td>
+    <td><button (click)="delete(p.id)">Excluir</button></td>
+  </tr>
+</table>

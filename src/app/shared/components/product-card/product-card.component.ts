@@ -4,10 +4,11 @@ import { Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { MatIconModule } from '@angular/material/icon';
 import { TruncatePipe } from '@pipes/truncate.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
-  imports: [ CommonModule, MatIconModule, TruncatePipe ],
+  imports: [ CommonModule, MatIconModule, TruncatePipe, RouterLink ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'
 })

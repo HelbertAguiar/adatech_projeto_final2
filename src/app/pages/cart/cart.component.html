@@ -1,0 +1,11 @@
+<div class="cart" *ngIf="items().length; else empty">
+  <div class="item" *ngFor="let item of items()">
+    <span>{{ item.title }}</span>
+    <span>{{ item.price | currency:'BRL' }}</span>
+    <button (click)="remove(item.id)">Remover</button>
+  </div>
+  <div class="total">Total: {{ total() | currency:'BRL' }}</div>
+</div>
+<ng-template #empty>
+  <p>Seu carrinho está vazio. <a routerLink="/">Voltar</a></p>
+</ng-template>

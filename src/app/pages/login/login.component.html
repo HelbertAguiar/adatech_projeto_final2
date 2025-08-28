@@ -1,0 +1,12 @@
+<form (ngSubmit)="login()" #loginForm="ngForm" class="login-form">
+  <label>
+    Usuário
+    <input type="text" name="username" [(ngModel)]="username" required />
+  </label>
+  <label>
+    Senha
+    <input type="password" name="password" [(ngModel)]="password" required />
+  </label>
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  <div class="error" *ngIf="error">{{ error }}</div>
+</form>

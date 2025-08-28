@@ -1,0 +1,13 @@
+.cart {
+  max-width: 600px;
+  margin: 2rem auto;
+  .item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .total {
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+}

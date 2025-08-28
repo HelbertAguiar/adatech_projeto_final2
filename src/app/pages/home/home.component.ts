@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '@shared/components/navbar/navbar.component'
 import { ProductCardComponent } from '@shared/components/product-card/product-card.component'
 import { ProductService } from "@services/product-service.service"
 import { Product } from '@models/product.model';
@@ -15,7 +14,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-home',
   imports: [CommonModule,
-    NavbarComponent,
     ProductCardComponent,
     FormsModule,
     MatInputModule,

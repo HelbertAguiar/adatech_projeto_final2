@@ -16,16 +16,25 @@
       </a>
     </li>
     <li>
-      <a routerLink="/carrinho" routerLinkActive="active">
+      <a routerLink="/cart" routerLinkActive="active">
         <mat-icon>shopping_cart</mat-icon>
-        Carrinho
+        Carrinho ({{ cartCount() }})
       </a>
     </li>
-    <li>
+    <li *ngIf="!isLoggedIn(); else logged">
       <a routerLink="/login" routerLinkActive="active">
         <mat-icon>person</mat-icon>
         Login
       </a>
     </li>
+    <ng-template #logged>
+      <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+      <li>
+        <button mat-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </li>
+    </ng-template>
   </ul>
 </nav>
