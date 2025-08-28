@@ -9,18 +9,19 @@ import { CartService } from '@services/cart.service';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
   imports: [MatIconModule, MatButtonModule, MatToolbarModule, RouterLink, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  private authService = inject(AuthService);
-  private cartService = inject(CartService);
+  private servicoAutenticacao = inject(AuthService);
+  private servicoCarrinho = inject(CartService);
 
-  isLoggedIn = this.authService.isLoggedIn;
-  cartCount = computed(() => this.cartService.items().length);
+  usuarioLogado = this.servicoAutenticacao.isLoggedIn;
+  quantidadeCarrinho = computed(() => this.servicoCarrinho.items().length);
 
   logout() {
-    this.authService.logout();
+    this.servicoAutenticacao.logout();
   }
 }

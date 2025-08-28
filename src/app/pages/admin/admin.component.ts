@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import localePt from '@angular/common/locales/pt';
 import { ConfirmarDialogComponent, ConfirmarDialogData } from '../../shared/components/confirmar-dialog/confirmar-dialog.component';
+import { ProdutoFormComponent, ProdutoFormData } from './produto-form/produto-form.component';
 
 // Registrar os dados de localização para o português do Brasil
 registerLocaleData(localePt);
@@ -52,7 +53,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   constructor(
     private servicoProdutos: ProductService,
     private snackBar: MatSnackBar,
-    private dialogoConfirmacao: MatDialog
+    private dialogo: MatDialog
   ) {}
 
   ngOnInit() {
@@ -134,6 +135,69 @@ export class AdminComponent implements OnInit, AfterViewInit {
     });
   }
 
+  abrirFormulario(produto?: Product) {
+    const dados: ProdutoFormData = {
+      produto: produto,
+      titulo: produto ? 'Editar Produto' : 'Adicionar Produto',
+      botaoSalvar: produto ? 'Atualizar' : 'Adicionar'
+    };
+
+    const dialogRef = this.dialogo.open(ProdutoFormComponent, {
+      width: '500px',
+      data: dados
+    });
+
+    dialogRef.afterClosed().subscribe((resultado: Product) => {
+      if (resultado) {
+        this.carregando = true;
+        
+        if (resultado.id) {
+          // Atualizar produto existente
+          this.servicoProdutos.update(resultado.id, resultado).subscribe({
+            next: () => {
+              this.carregarProdutos();
+              this.snackBar.open('Produto atualizado com sucesso', 'Fechar', {
+                duration: 3000,
+                panelClass: 'success-snackbar'
+              });
+            },
+            error: (erro) => {
+              this.carregando = false;
+              this.snackBar.open('Erro ao atualizar produto', 'Fechar', {
+                duration: 5000,
+                panelClass: 'error-snackbar'
+              });
+              console.error('Erro ao atualizar produto:', erro);
+            }
+          });
+        } else {
+          // Adicionar novo produto
+          this.servicoProdutos.create(resultado).subscribe({
+            next: () => {
+              this.carregarProdutos();
+              this.snackBar.open('Produto adicionado com sucesso', 'Fechar', {
+                duration: 3000,
+                panelClass: 'success-snackbar'
+              });
+            },
+            error: (erro) => {
+              this.carregando = false;
+              this.snackBar.open('Erro ao adicionar produto', 'Fechar', {
+                duration: 5000,
+                panelClass: 'error-snackbar'
+              });
+              console.error('Erro ao adicionar produto:', erro);
+            }
+          });
+        }
+      }
+    });
+  }
+
+  editar(produto: Product) {
+    this.abrirFormulario(produto);
+  }
+
   excluir(id: number) {
     const dadosDialogo: ConfirmarDialogData = {
       titulo: 'Confirmar Exclusão',
@@ -142,7 +206,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
       botaoCancelar: 'Cancelar'
     };
 
-    const dialogRef = this.dialogoConfirmacao.open(ConfirmarDialogComponent, {
+    const dialogRef = this.dialogo.open(ConfirmarDialogComponent, {
       width: '400px',
       data: dadosDialogo
     });
@@ -154,7 +218,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
           next: () => {
             this.carregarProdutos();
             this.snackBar.open('Produto excluído com sucesso', 'Fechar', {
-              duration: 3000
+              duration: 3000,
+              panelClass: 'success-snackbar'
             });
           },
           error: (erro: any) => {

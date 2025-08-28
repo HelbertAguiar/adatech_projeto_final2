@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
 import { apiconsumo } from '../../../../environments/environments';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -10,16 +11,38 @@ export class ProductService {
   constructor(private http: HttpClient) { }
   private readonly baseURL = `${apiconsumo.baseURL}/products`;
 
-  getAll() {
+  /**
+   * Obtém todos os produtos
+   */
+  getAll(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseURL);
   }
 
-  getById(id: number) {
+  /**
+   * Obtém um produto pelo ID
+   */
+  getById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.baseURL}/${id}`);
   }
 
-  delete(id: number) {
+  /**
+   * Remove um produto pelo ID
+   */
+  delete(id: number): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
 
+  /**
+   * Atualiza um produto existente
+   */
+  update(id: number, produto: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.baseURL}/${id}`, produto);
+  }
+
+  /**
+   * Adiciona um novo produto
+   */
+  create(produto: Product): Observable<Product> {
+    return this.http.post<Product>(this.baseURL, produto);
+  }
 }
