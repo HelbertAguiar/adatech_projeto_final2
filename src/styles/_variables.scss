@@ -1,0 +1,56 @@
+// Paleta de cores principal
+$primary: #3f51b5;
+$primary-light: #757de8;
+$primary-dark: #002984;
+
+$accent: #ff4081;
+$accent-light: #ff79b0;
+$accent-dark: #c60055;
+
+$warn: #f44336;
+$warn-light: #ff7961;
+$warn-dark: #ba000d;
+
+// Cores neutras
+$background: #fafafa;
+$surface: #ffffff;
+$error: #b00020;
+$text-primary: rgba(0, 0, 0, 0.87);
+$text-secondary: rgba(0, 0, 0, 0.6);
+$text-disabled: rgba(0, 0, 0, 0.38);
+
+// Espaçamentos
+$spacing-xs: 0.25rem;  // 4px
+$spacing-sm: 0.5rem;   // 8px
+$spacing-md: 1rem;     // 16px
+$spacing-lg: 1.5rem;   // 24px
+$spacing-xl: 2rem;     // 32px
+$spacing-xxl: 3rem;    // 48px
+
+// Breakpoints
+$breakpoint-xs: 0;
+$breakpoint-sm: 600px;
+$breakpoint-md: 960px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1920px;
+
+// Tipografia
+$font-family-base: 'Roboto, "Helvetica Neue", sans-serif';
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-xxl: 2rem;
+
+// Sombras
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.14);
+$shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.16);
+
+// Bordas
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-circle: 50%;
