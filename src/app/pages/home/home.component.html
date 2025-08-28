@@ -40,15 +40,23 @@
 
             @if (loading) {
                 <div class="spinner-container">
-                    <mat-spinner mode="indeterminate" diameter="150"></mat-spinner>
+                    <mat-spinner mode="indeterminate" diameter="80"></mat-spinner>
+                    <p>Carregando produtos...</p>
                 </div>
             } @else {
                 @for (produto of listaProdutosExibir; track produto.id) {
                     <div class="home__product-item">
-                        <app-product-card [product]="produto"></app-product-card>
+                        <app-product-card [produto]="produto"></app-product-card>
                     </div>
                 } @empty {
-                    <div class="home__no-products">Nenhum produto localizado.</div>
+                    <div class="home__no-products">
+                        <mat-icon>search_off</mat-icon>
+                        <p>Nenhum produto localizado com os filtros aplicados.</p>
+                        <button mat-raised-button color="primary" (click)="resetarFiltros()">
+                            <mat-icon>refresh</mat-icon>
+                            Limpar Filtros
+                        </button>
+                    </div>
                 }
             }
 

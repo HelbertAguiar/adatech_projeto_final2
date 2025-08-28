@@ -1,40 +1,55 @@
 
-<div class="product-card" [routerLink]="['/product', product.id]">
-    <div class="product-card__image">
-        <!-- <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" [alt]="product.title" /> -->
-        <img [src]="product.image" [alt]="product.title" />
+<div class="product-card">
+    <div class="product-card__image" [routerLink]="['/product', produto.id]">
+        <img [src]="produto.image" [alt]="produto.title" />
+        <div *ngIf="produto.rating.rate > 4.5" class="product-card__badge">
+            <span>Destaque</span>
+        </div>
     </div>
     <div class="product-card__right">
-        <div class="product-card__info">
+        <div class="product-card__info" [routerLink]="['/product', produto.id]">
             <div class="product-card__title">
-                <span class="product-card__category">{{ product.category }}</span>
-                <h2 class="">{{ product.title }}</h2>
+                <span class="product-card__category">{{ produto.category }}</span>
+                <h2>{{ produto.title }}</h2>
             </div>
 
             <div class="product-card__description">
-                <p>{{ product.description | truncate:200 }}</p>
+                <p>{{ produto.description | truncate:150 }}</p>
             </div>
 
             <div class="product-card__rodape">
                 <div class="product-card__prices">
-                    <span class="product-card__price">{{ product.price | currency:'BRL' }}</span>
-                    <span *ngIf="product.price" class="product-card__price-old">{{ 1.09 * product.price | currency:'BRL' }}</span>
+                    <span class="product-card__price">{{ produto.price | currency:'BRL' }}</span>
+                    <span *ngIf="produto.price" class="product-card__price-old">{{ 1.09 * produto.price | currency:'BRL' }}</span>
                 </div>
     
                 <div class="product-card__rating">
-                    <span>Rating: {{ product.rating.rate }} ({{ product.rating.count }} reviews)</span>
+                    <div class="stars">
+                        <mat-icon *ngFor="let estrela of [1,2,3,4,5]; let i = index" 
+                                [ngClass]="classeEstrela(i)">
+                            {{ iconeEstrela(i) }}
+                        </mat-icon>
+                    </div>
+                    <span>({{ produto.rating.count }})</span>
                 </div>
             </div>
 
         </div>
         <div class="product-card__actions">
-            <button class="product-card__button product-card__button--add" (click)="$event.stopPropagation();">
+            <button 
+                class="product-card__button product-card__button--add"
+                matTooltip="Adicionar ao carrinho" 
+                (click)="adicionarAoCarrinho($event)">
                 <mat-icon>shopping_cart</mat-icon> 
-                &nbsp;
                 <span>Adicionar</span>
             </button>
-            <button class="product-card__button product-card__button--favorite" (click)="$event.stopPropagation();">
-                &#x2665;
+            
+            <button 
+                class="product-card__button product-card__button--detail"
+                matTooltip="Ver detalhes do produto" 
+                [routerLink]="['/product', produto.id]">
+                <mat-icon>visibility</mat-icon>
+                <span>Detalhes</span>
             </button>
         </div>
     </div>

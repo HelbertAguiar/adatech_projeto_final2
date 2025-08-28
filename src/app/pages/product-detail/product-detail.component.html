@@ -10,11 +10,11 @@
     <p class="loading-text">Carregando detalhes do produto...</p>
   </div>
 
-  <div *ngIf="!carregando && product" class="product-detail">
+  <div *ngIf="!carregando && produto" class="product-detail">
     <mat-card class="produto-card">
       <div class="produto-grid">
         <div class="produto-imagem">
-          <img [src]="product.image" [alt]="product.title" class="produto-img" />
+          <img [src]="produto.image" [alt]="produto.title" class="produto-img" />
           <div *ngIf="produtoEmPromocao()" class="promocao-badge">
             <span>-{{ calcularDesconto() }}</span>
           </div>
@@ -22,8 +22,8 @@
 
         <div class="produto-info">
           <mat-card-header>
-            <mat-card-title>{{ product.title }}</mat-card-title>
-            <mat-card-subtitle>{{ product.category | titlecase }}</mat-card-subtitle>
+            <mat-card-title>{{ produto.title }}</mat-card-title>
+            <mat-card-subtitle>{{ produto.category | titlecase }}</mat-card-subtitle>
           </mat-card-header>
 
           <mat-card-content>
@@ -35,15 +35,15 @@
                   {{ getStarIcon(i) }}
                 </mat-icon>
               </div>
-              <span class="rating-value">{{ product.rating.rate | number:'1.1-1' }}/5</span>
-              <span class="reviews-count">({{ product.rating.count }} avaliações)</span>
+              <span class="rating-value">{{ produto.rating.rate | number:'1.1-1' }}/5</span>
+              <span class="reviews-count">({{ produto.rating.count }} avaliações)</span>
             </div>
 
             <mat-divider class="divider"></mat-divider>
 
             <div class="price-container">
               <h3 class="price" [ngClass]="{'price-original': produtoEmPromocao()}">
-                {{ product.price | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                {{ produto.price | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
               </h3>
               
               <h3 *ngIf="produtoEmPromocao()" class="price-promotional">
@@ -51,7 +51,7 @@
               </h3>
             </div>
 
-            <p class="description">{{ product.description }}</p>
+            <p class="description">{{ produto.description }}</p>
 
             <mat-divider class="divider"></mat-divider>
 
@@ -59,7 +59,7 @@
               <button 
                 mat-raised-button 
                 color="primary" 
-                (click)="addToCart()" 
+                (click)="adicionarAoCarrinho()" 
                 class="add-to-cart"
                 [disabled]="adicionadoAoCarrinho()"
                 [matTooltip]="adicionadoAoCarrinho() ? 'Item já está no carrinho' : 'Adicionar ao carrinho'">
@@ -74,9 +74,9 @@
             </div>
 
             <mat-chip-set class="chip-list">
-              <mat-chip>{{ product.category }}</mat-chip>
-              <mat-chip color="accent" *ngIf="product.rating.rate >= 4">Alta Avaliação</mat-chip>
-              <mat-chip color="warn" *ngIf="product.rating.count > 200">Popular</mat-chip>
+              <mat-chip>{{ produto.category }}</mat-chip>
+              <mat-chip color="accent" *ngIf="produto.rating.rate >= 4">Alta Avaliação</mat-chip>
+              <mat-chip color="warn" *ngIf="produto.rating.count > 200">Popular</mat-chip>
             </mat-chip-set>
           </mat-card-content>
         </div>

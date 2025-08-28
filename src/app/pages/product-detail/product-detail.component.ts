@@ -34,7 +34,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './product-detail.component.scss',
 })
 export class ProductDetailComponent {
-  product?: Product;
+  produto?: Product;
   carregando = true;
   qtdEstrelas: number[] = [1, 2, 3, 4, 5];
   adicionadoAoCarrinho = signal(false);
@@ -42,8 +42,8 @@ export class ProductDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService,
-    private cartService: CartService,
+    private produtoServico: ProductService,
+    private carrinhoServico: CartService,
     private snackBar: MatSnackBar,
     private location: Location
   ) {}
@@ -51,12 +51,12 @@ export class ProductDetailComponent {
   ngOnInit() {
     this.carregando = true;
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getById(id).subscribe({
-      next: (produto) => {
-        this.product = produto;
+    this.produtoServico.getById(id).subscribe({
+      next: (produto: Product) => {
+        this.produto = produto;
         this.carregando = false;
       },
-      error: (erro) => {
+      error: (erro: any) => {
         console.error('Erro ao carregar produto:', erro);
         this.carregando = false;
         this.snackBar.open('Erro ao carregar detalhes do produto', 'Fechar', {
@@ -67,11 +67,11 @@ export class ProductDetailComponent {
     });
   }
 
-  addToCart() {
-    if (this.product) {
-      this.cartService.add(this.product);
+  adicionarAoCarrinho() {
+    if (this.produto) {
+      this.carrinhoServico.add(this.produto);
       this.adicionadoAoCarrinho.set(true);
-      this.snackBar.open(`${this.product.title} adicionado ao carrinho!`, 'Visualizar Carrinho', {
+      this.snackBar.open(`${this.produto.title} adicionado ao carrinho!`, 'Visualizar Carrinho', {
         duration: 3000,
         panelClass: 'success-snackbar',
         horizontalPosition: 'end',
@@ -87,14 +87,14 @@ export class ProductDetailComponent {
   }
   
   getEstrelaClass(index: number): string {
-    if (!this.product) return 'star-empty';
-    return index < Math.round(this.product.rating.rate) ? 'star-full' : 'star-empty';
+    if (!this.produto) return 'star-empty';
+    return index < Math.round(this.produto.rating.rate) ? 'star-full' : 'star-empty';
   }
 
   getStarIcon(index: number): string {
-    if (!this.product) return 'star_border';
+    if (!this.produto) return 'star_border';
     
-    const rating = this.product.rating.rate;
+    const rating = this.produto.rating.rate;
     if (index < Math.floor(rating)) {
       return 'star'; // Estrela cheia
     } else if (index < Math.ceil(rating) && !Number.isInteger(rating)) {
@@ -105,17 +105,17 @@ export class ProductDetailComponent {
   }
   
   produtoEmPromocao(): boolean {
-    return this.product !== undefined && this.product.rating.rate > 4.2;
+    return this.produto !== undefined && this.produto.rating.rate > 4.2;
   }
   
   calcularDesconto(): string {
-    if (!this.product) return '0%';
-    return this.product.rating.rate > 4.5 ? '10%' : '5%';
+    if (!this.produto) return '0%';
+    return this.produto.rating.rate > 4.5 ? '10%' : '5%';
   }
   
   precoPromocional(): number | undefined {
-    if (!this.product) return undefined;
-    const desconto = this.product.rating.rate > 4.5 ? 0.9 : 0.95;
-    return this.product.price * desconto;
+    if (!this.produto) return undefined;
+    const desconto = this.produto.rating.rate > 4.5 ? 0.9 : 0.95;
+    return this.produto.price * desconto;
   }
 }

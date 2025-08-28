@@ -10,17 +10,24 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     ProductCardComponent,
     FormsModule,
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
     MatSliderModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSnackBarModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -49,7 +56,10 @@ export class HomeComponent {
   @ViewChild('filtroRatingMinID') filtroRatingMinCustomizado!: ElementRef<HTMLInputElement>;
   @ViewChild('filtroRatingMaxID') filtroRatingMaxCustomizado!: ElementRef<HTMLInputElement>;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     this.loading = true;
@@ -126,12 +136,36 @@ export class HomeComponent {
   }
 
   formatLabelFiltroPreco(value: number): string {
-
     if (value >= 1000) {
       return '' + String(Math.round(value / 1000)) + 'k';
     }
-
     return '' + String(value);
   }
-
+  
+  resetarFiltros(): void {
+    this.categoriaSelecionada = 'Todas';
+    this.precoMinSelecionado = this.precoMinimoFiltro;
+    this.precoMaxSelecionado = this.precoMaximoFiltro;
+    this.ratingMinSelecionado = this.ratingMinimoFiltro;
+    this.ratingMaxSelecionado = this.ratingMaximoFiltro;
+    
+    // Atualizar os controles de UI
+    if (this.filtroPrecoMinCustomizado && this.filtroPrecoMaxCustomizado) {
+      this.filtroPrecoMinCustomizado.nativeElement.value = String(this.precoMinimoFiltro);
+      this.filtroPrecoMaxCustomizado.nativeElement.value = String(this.precoMaximoFiltro);
+    }
+    
+    if (this.filtroRatingMinCustomizado && this.filtroRatingMaxCustomizado) {
+      this.filtroRatingMinCustomizado.nativeElement.value = String(this.ratingMinimoFiltro);
+      this.filtroRatingMaxCustomizado.nativeElement.value = String(this.ratingMaximoFiltro);
+    }
+    
+    this.filtrarProdutos();
+    
+    this.snackBar.open('Filtros resetados com sucesso!', 'Fechar', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+  }
 }
