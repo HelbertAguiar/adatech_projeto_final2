@@ -7,8 +7,6 @@
     <span class="navbar__titulo">Store &nbsp;</span>
   </div>
   <ul class="navbar__links">
-    <!-- <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li> -->
-    <!-- <li><a routerLink="/produtos" routerLinkActive="active">Produtos</a></li> -->
     <li>
       <a routerLink="/" routerLinkActive="active">
         <mat-icon>home</mat-icon>
@@ -23,17 +21,22 @@
     </li>
     <li *ngIf="!isLoggedIn(); else logged">
       <a routerLink="/login" routerLinkActive="active">
-        <mat-icon>person</mat-icon>
+        <mat-icon>login</mat-icon>
         Login
       </a>
     </li>
     <ng-template #logged>
-      <li><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
       <li>
-        <button mat-button (click)="logout()">
+        <a routerLink="/admin" routerLinkActive="active">
+          <mat-icon>work</mat-icon>
+          Admin
+        </a>
+      </li>
+      <li>
+        <a (click)="logout()">
           <mat-icon>logout</mat-icon>
           Logout
-        </button>
+        </a>
       </li>
     </ng-template>
   </ul>
