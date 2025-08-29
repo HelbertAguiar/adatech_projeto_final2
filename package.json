@@ -11,8 +11,7 @@
     "lint:fix": "eslint . --ext .ts,.html --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build:prod": "ng build --configuration production --base-href=/adatech_projeto_final2/",
-    "deploy": "npx angular-cli-ghpages --dir=dist/ecommerce/browser"
+    "build:prod": "ng build --configuration production --base-href=/adatech_projeto_final2/"
   },
   "private": true,
   "dependencies": {
