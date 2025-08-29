@@ -1,0 +1,1 @@
+import{S as i,sa as o}from"./chunk-XYR4GEIX.js";var a=class r{items=o([]);add(e){this.items.update(t=>[...t,e])}remove(e){this.items.update(t=>t.filter(c=>c.id!==e))}clear(){this.items.set([])}static \u0275fac=function(t){return new(t||r)};static \u0275prov=i({token:r,factory:r.\u0275fac,providedIn:"root"})};export{a};
