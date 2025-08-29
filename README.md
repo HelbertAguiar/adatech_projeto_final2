@@ -1,5 +1,7 @@
 # Nexus Store (E-Commerce Angular)
 
+Acesse aqui e utilize a página: [Nexus Store Ecommerce](https://helbertaguiar.github.io/adatech_projeto_final2/)
+
 Este projeto é uma aplicação Single-Page Application (SPA) desenvolvida em Angular, simulando uma loja online (Vitrine E-commerce). O projeto foi criado com [Angular CLI](https://github.com/angular/angular-cli) versão 19.2.15.
 
 ## Arquitetura do Projeto

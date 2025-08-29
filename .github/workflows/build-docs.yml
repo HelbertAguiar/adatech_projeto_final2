@@ -30,5 +30,3 @@ jobs:
           name: github-pages
           path: dist/ecommerce/browser
           
-      # Não precisamos mais do commit direto, pois estamos usando o workflow de deploy
-      # Removemos esta etapa para evitar conflitos
