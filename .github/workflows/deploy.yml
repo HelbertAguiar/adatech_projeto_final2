@@ -35,3 +35,4 @@ jobs:
           folder: dist/ecommerce/browser
           branch: gh-pages
           token: ${{ github.token }}
+          clean: true
