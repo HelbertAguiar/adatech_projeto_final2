@@ -79,7 +79,6 @@ O projeto aplica os seguintes conceitos do Angular:
 
 ### 4. Observables e Signals
 - Chamadas HTTP com HttpClient retornam Observables
-- Uso de `pipe` e operadores como `tap` para tratamento de fluxos assíncronos
 - Implementação de Signals para gerenciamento de estado reativo
 
 ### 5. Autenticação JWT
@@ -100,8 +99,7 @@ O projeto aplica os seguintes conceitos do Angular:
 6. **Guards**: Proteção de rotas baseada em autenticação
 7. **Pipes Personalizados**: Criação do TruncatePipe para facilitar a formatação de textos
 8. **Componentes Reutilizáveis**: Componentes compartilhados no diretório shared
-9. **Documentação do Código**: Comentários e JSDoc para documentação de métodos importantes
-10. **Organização de Estilos**: Variáveis SCSS para consistência visual da aplicação
+9. **Organização de Estilos**: Variáveis SCSS para consistência visual da aplicação
 
 ## Como rodar a aplicação (em DES)
 
