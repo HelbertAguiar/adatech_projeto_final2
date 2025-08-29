@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# Define permissões necessárias para o token GITHUB_TOKEN
+permissions:
+  contents: write # Permissão para escrever no repositório
+  pages: write    # Permissão para publicar no GitHub Pages
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -29,3 +34,4 @@ jobs:
         with:
           folder: dist/ecommerce/browser
           branch: gh-pages
+          token: ${{ github.token }}
